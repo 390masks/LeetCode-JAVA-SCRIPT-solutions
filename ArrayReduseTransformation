@@ -1,0 +1,44 @@
+Given an integer array nums, a reducer function fn, and an initial value init, return the final result obtained by executing the fn function on each element of the array, sequentially, passing in the return value from the calculation on the preceding element.
+
+This result is achieved through the following operations: val = fn(init, nums[0]), val = fn(val, nums[1]), val = fn(val, nums[2]), ... until every element in the array has been processed. The ultimate value of val is then returned.
+
+If the length of the array is 0, the function should return init.
+
+Please solve it without using the built-in Array.reduce method.
+
+
+/**
+ * @param {number[]} nums - Array of integers.
+ * @param {function} fn - Reducer function.
+ * @param {number} init - Initial value.
+ * @return {number} - Reduced result.
+ */
+var reduce = function(nums, fn, init) {
+    // Initialize the result with the initial value
+    let result = init;
+
+    // Iterate through the array and apply the reducer function
+    for (let i = 0; i < nums.length; i++) {
+        result = fn(result, nums[i]);
+    }
+
+    // Return the final accumulated value
+    return result;
+};
+
+// Example Usage
+
+// Example 1
+console.log(
+    reduce([1, 2, 3, 4], (accum, curr) => accum + curr, 0)
+); // Output: 10
+
+// Example 2
+console.log(
+    reduce([1, 2, 3, 4], (accum, curr) => accum + curr * curr, 100)
+); // Output: 130
+
+// Example 3
+console.log(
+    reduce([], (accum, curr) => accum + curr, 25)
+); // Output: 25
